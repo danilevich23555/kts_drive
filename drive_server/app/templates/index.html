@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nadia Drive</title>
+    <link rel="stylesheet" href="static/third_party/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/main.css" type="text/css">
+</head>
+<body>
+<div id="api-host" data-host="{{API_HOST}}"></div>
+<div class="modal modal-fullscreen" id="login-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Авторизация</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <input id="login-username" type="text" class="form-control" placeholder="Введите логин"
+                           aria-label="username">
+                </div>
+                <div class="input-group mb-3">
+                    <input id="login-password" type="password" class="form-control" placeholder="Введите пароль"
+                           aria-label="password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="login-button" class="btn btn-primary">Войти</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid m-0 p-0">
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="static/images/kts-logo.svg" alt="" width="30" height="24"
+                     class="d-inline-block align-text-top">
+                drive
+            </a>
+            <input type="file" id="file-upload-form" style="display: none">
+            <button type="button" id="file-upload-button" class="btn btn-success">Загрузить файл</button>
+        </div>
+    </nav>
+    <div class="container-fluid" id="files-container"></div>
+
+</div>
+</body>
+<script type="application/javascript" src="static/third_party/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="application/javascript" src="static/js/utils.js"></script>
+<script type="application/javascript" src="static/js/components.js"></script>
+<script type="application/javascript" src="static/js/api.js"></script>
+<script type="application/javascript" src="static/js/main.js"></script>
+</html>
