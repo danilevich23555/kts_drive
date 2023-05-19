@@ -11,7 +11,7 @@ from aiohttp_session.cookie_storage import EncryptedCookieStorage
 import asyncio
 import aioredis
 
-from common.utils import show_api_url
+
 from drive_server.app.base.application import Application
 from drive_server.app.config.dataclasses import create_config
 from drive_server.app.database.sqlalchemy_model.database_sqlalchemy import Database
@@ -64,7 +64,6 @@ def create_app() -> Application:
 
 
 if __name__ == '__main__':
-    show_api_url()
     print(f'Интерфейс S3 доступен по {settings.DSN_MINIO},'
           f' логин: {settings.MINIO_ACCESS_KEY}, пароль: {settings.MINIO_SECRET_KEY}')
     web.run_app(create_app(), port=8888)
