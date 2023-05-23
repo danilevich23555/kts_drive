@@ -9,3 +9,4 @@ async def reader_iterator(reader: BodyPartReader, chunk_size: int = 5 * 1024 * 1
         while not reader.at_eof() and len(chunk) < chunk_size:
             chunk += await reader.read_chunk(size=chunk_size)
         yield chunk
+

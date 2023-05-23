@@ -1,11 +1,12 @@
 import uuid
 from datetime import datetime
+from aiohttp.web import json_response
 
 from drive_server.app.api.files.schemas import FilesUploadSchema
 from drive_server.app.api.files.utils import make_upload_callback
 from drive_server.app.base.application import View
 from drive_server.app.store.websockets.websocket_accessor import WebSocketMessageKind
-from drive_server.app.web.response import json_response
+# from drive_server.app.web.response import json_response
 
 
 class FilesUploadView(View):
@@ -37,9 +38,4 @@ class FilesUploadView(View):
         # TODO: вызвать метод s3 accessor upload и пробросить нужные данные
         # TODO: дождаться конца загрузки
         #  и отправить в ws-канал сообщение о конце загрузки WebSocketMessageKind.UPLOAD_FINISH
-        return json_response({
-            'upload_id': upload_id,
-            'filename': filename,  # TODO: поставить сюда реальное значени
-            'size': total_size,
-            'created': datetime.now(),
-        })
+        return json_response()
