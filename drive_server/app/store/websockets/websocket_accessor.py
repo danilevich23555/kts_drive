@@ -20,6 +20,7 @@ class WebSocketMessageKind(Enum):
 class WebSocketAccessor(BaseAccessor):
     def _init_(self):
         self._connections: dict[str, Any] = {}  # место, где хранится пара (user_id, WebSocketResponse)
+        print(self._connections)
 
     async def handle(self, request: Request):
         # TODO: закрыть ws-сессию, если она уже есть
