@@ -15,10 +15,10 @@ services:
       MINIO_HTTP_TRACE: /tmp/minio
       DSN_MINIO: http://127.0.0.1:9000
     command: [ "server", "--console-address", ":9001", "/data" ]
-  brocker:
+  redis:
     image: redis
     ports:
-      - "6379:6379"
+      - "6399:6379"
   postgres:
     image: postgres:11.0-alpine
     environment:

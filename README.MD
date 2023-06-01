@@ -7,6 +7,11 @@
 >>>>Установить зависимости запустив команду в терминале pip install -r rquirements.txt
 >>>>>Накатить миграции в БД выполнив команду в терминале "alembic upgrade head"
 >>>>>>Запустить файл drive_server/main.py
+### Запуск app - так надо
+```shell
+export PYTHONPATH=$PWD
+python drive_server/main.py
+```
 >>>>>>>Через postman создать юзера endpoint http://0.0.0.0:8888/adduser со следующим json файлом {
 "username": "25@yandex.ru",
 "password": "wishoting"} данные могут быть любые

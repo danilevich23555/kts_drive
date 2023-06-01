@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5c2d00a-a1ab-438b-8a6d-7bacdb8dc772" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/kts_drive.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kts_drive.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drive_server/app/store/websockets/websocket_accessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/drive_server/app/store/websockets/websocket_accessor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drive_server/app/web/middlewares.py" beforeDir="false" afterPath="$PROJECT_DIR$/drive_server/app/web/middlewares.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alembic.ini" beforeDir="false" afterPath="$PROJECT_DIR$/alembic.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alembic/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/alembic/env.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +42,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fix&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/danila/KTS/AIOHTTP_SERVER&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
