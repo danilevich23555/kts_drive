@@ -12,7 +12,7 @@ from drive_server.app.settings.settings import settings
 # access to the values within the .ini file in use.
 
 def set_sqlalchemy_url():
-    config.set_main_option('sqlalchemy.url', settings.POSTGRES_DSN)
+    config.set_main_option('sqlalchemy.url', settings.POSTGRES_DSN_sqlAlchemy)
 
 
 config = context.config

@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     POSTGRES_HOST:str = os.getenv("POSTGRES_HOST")
     POSTGRES_PORT:str = os.getenv('POSTGRES_PORT')
     POSTGRES_DSN:str = os.getenv('POSTGRES_DSN')
+    POSTGRES_DSN_sqlAlchemy: str = os.getenv('POSTGRES_DSN_sqlAlchemy')
     DSN_REDIS:str = os.getenv('DSN_REDIS')
 
 
