@@ -1,7 +1,7 @@
 import os
 
 
-def show_api_url():
+def show_api_url():  #todo нигде не используется может удалить?
     if not os.environ.get('API_EXPOSER_URL'):
         print('В переменных окружения нет ссылки на развернутое API, пожалуйста, напишите в чат группы')
     else:

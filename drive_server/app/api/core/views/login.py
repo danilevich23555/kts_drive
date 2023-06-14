@@ -10,6 +10,8 @@ from aiohttp import web
 
 from drive_server.app.database.sqlalchemy_model.models import User, UserSession
 from drive_server.app.pydantic_model.models import User as UserValidPydantic
+from work_with_cookie.utils import set_user_in_cockie
+
 
 
 class CoreLoginView(View):
@@ -24,20 +26,24 @@ class CoreLoginView(View):
         data = await self.request.json()
         UserValidPydantic(email=data['username'])
         user = await self.app.store.postgres_user.get_user(data['username'])
-        raw_user = [(x.user_name, x.password, x.id) for x in user]
+        # raw_user = [(x.user_name, x.password, x.id) for x in user] #todo это выкидывай тут можно user.
         password_b = data['password'].encode('utf-8')
-        res = bcrypt.checkpw(password_b, raw_user[0][1].encode('utf-8'))
+        res = bcrypt.checkpw(password_b, user.password.encode('utf-8'))
         print(res)
-        if data['username'] != raw_user[0][0] or bcrypt.checkpw(password_b,
-                                                                raw_user[0][1].encode('utf-8')) == False:
+        if data['username'] != user.user_name or bcrypt.checkpw(password_b,
+                                                                user.password.encode('utf-8')) == False:
             raise web.HTTPForbidden(reason='Неверная пара логин/пароль!')
         session = await aiohttp_session.new_session(request=self.request)
         session['user'] = {
             'id': str(uuid.uuid4())
         }
-        user_session = UserSession(user_id=raw_user[0][2], id_session=session['user']['id'])
-        await self.request.app.store.postgres_user.add_user(user_session)
-        return json_response(data= {'data': f'{session["user"]["id"]}', 'status': 'ok'})
+        user_session = UserSession(user_id=user.id, id_session=session['user']['id'])
+        await self.request.app.store.postgres_user.add_user(user_session) #todo при логине не нужно добовлять каждый раз юзера для этого есть метод register
+
+        #todo добавляем куку в редис
+        await set_user_in_cockie(request=self.request, usr_token=str(user.user_token))
+
+        return json_response(data= {'data': "login success", 'status': 'ok'})
 
 
 

@@ -31,4 +31,4 @@ class CrmAccessor(BaseAccessor):
         async with Database.session() as sessions:
             stmt = select(User).where(User.user_name == email)
             results = await sessions.execute(stmt)
-            return results.scalars()
+            return results.scalars().first()

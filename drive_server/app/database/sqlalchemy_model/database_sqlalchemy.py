@@ -83,7 +83,7 @@ class Database(object, metaclass=SingletonPool):
             await session.rollback()
             raise
         finally:
-            session.commit()
+            await session.commit()
             await session.close()
 
 

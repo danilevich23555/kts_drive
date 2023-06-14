@@ -13,9 +13,9 @@ if typing.TYPE_CHECKING:
 
 def setup_routes(app: 'Application'):
     app.cors.add(app.router.add_view('/', IndexView))
-    app.cors.add(app.router.add_view('/core.login', CoreLoginView))
+    app.cors.add(app.router.add_view('/core/login', CoreLoginView))
     app.cors.add(app.router.add_view('/core.current', CoreCurrentView))
     app.cors.add(app.router.add_view('/core.ws_connect', CoreWSConnectView))
-    app.cors.add(app.router.add_view('/adduser', AddUserView))
+    app.cors.add(app.router.add_view('/register', AddUserView))
     app.cors.add(app.router.add_static('/static', os.path.join(BASE_DIR, 'app', 'templates', 'static')))
     # TODO: добавить Route для недостающих методов

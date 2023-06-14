@@ -1,7 +1,7 @@
 import base64
 import os
 import pathlib
-
+import aiohttp_session
 import aiohttp_cors
 import fernet as fernet
 from aiohttp import web
@@ -42,9 +42,11 @@ def create_app() -> Application:
         )
     })
     # TODO: aiohttp_session.setup, cookie name='sessionid'
-    # loop = asyncio.get_event_loop()
-    # redis_pool = loop.run_until_complete(make_redis_pool())
-    # storage = RedisStorage(redis_pool)
+    loop = asyncio.get_event_loop()
+    redis_pool = loop.run_until_complete(make_redis_pool())
+    REDIS_COOKIE_NAME = 'session_id' #todo вынести в settings
+    storage = aiohttp_session.redis_storage.RedisStorage(redis_pool, cookie_name=REDIS_COOKIE_NAME, max_age=600)
+    aiohttp_session.setup(app, storage)
     #
     # async def dispose_redis_pool(app):
     #     redis_pool.close()

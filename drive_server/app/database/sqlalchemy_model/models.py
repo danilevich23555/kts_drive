@@ -1,3 +1,4 @@
+import uuid
 from sqlalchemy import (
     Column,
     DateTime,
@@ -9,7 +10,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from drive_server.app.database.sqlalchemy_model.database_sqlalchemy import Base
-
+from sqlalchemy.dialects.postgresql import UUID
 
 
 
@@ -25,6 +26,7 @@ class User(Base):
     user_name = Column(String(100), nullable=False, unique=True)
     password = Column(String(200), nullable=False)
     registration_time = Column(DateTime, server_default=func.now())
+    user_token = Column(UUID(as_uuid=True), unique=True, nullable=False, default=uuid.uuid4,index=False) # при миграции может быть ошибка добавить команду CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
 
