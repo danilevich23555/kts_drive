@@ -34,12 +34,12 @@ class CoreLoginView(View):
             if data['username'] != user.user_name or bcrypt.checkpw(password_b,
                                                                     user.password.encode('utf-8')) == False:
                 raise web.HTTPForbidden(reason='Неверная пара логин/пароль!')
-            # session = await aiohttp_session.new_session(request=self.request)
-            # session['user'] = {
-            #     'id': str(uuid.uuid4())
-            # }
-            # user_session = UserSession(user_id=user.id, id_session=session['user']['id'])
-            # await self.request.app.store.postgres_user.add_user(user_session) #todo при логине не нужно добовлять каждый раз юзера для этого есть метод register
+            session = await aiohttp_session.new_session(request=self.request)
+            session['user'] = {
+                'id': str(uuid.uuid4())
+            }
+            user_session = UserSession(user_id=user.id, id_session=session['user']['id'])
+            await self.request.app.store.postgres_user.add_user(user_session) #todo при логине не нужно добовлять каждый раз юзера для этого есть метод register
 
             #todo добавляем куку в редис
             await set_user_in_cockie(request=self.request, usr_token=str(user.user_token))
