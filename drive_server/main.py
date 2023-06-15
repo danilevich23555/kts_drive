@@ -12,7 +12,6 @@ from aiohttp_session.cookie_storage import EncryptedCookieStorage
 import asyncio
 import aioredis
 
-
 from drive_server.app.base.application import Application
 from drive_server.app.config.dataclasses import create_config
 from drive_server.app.database.sqlalchemy_model.database_sqlalchemy import Database
@@ -25,9 +24,9 @@ from drive_server.app.settings.settings import settings
 BASE_DIR = pathlib.Path(__file__).parent
 
 
-async def make_redis_pool():
+def make_redis_pool():
     redis_address = settings.DSN_REDIS
-    return await aioredis.create_pool(('127.0.0.1', 6379))
+    return aioredis.from_url(url="redis://127.0.0.1:6379")
     # return await aioredis.create_redis_pool(redis_address, timeout=1)
 
 def create_app() -> Application:
@@ -45,7 +44,7 @@ def create_app() -> Application:
     })
     # TODO: aiohttp_session.setup, cookie name='sessionid'
     loop = asyncio.get_event_loop()
-    redis_pool = loop.run_until_complete(make_redis_pool())
+    redis_pool = make_redis_pool()
     REDIS_COOKIE_NAME = 'session_id' #todo вынести в settings
     storage = aiohttp_session.redis_storage.RedisStorage(redis_pool, cookie_name=REDIS_COOKIE_NAME, max_age=600)
     aiohttp_session.setup(app, storage)
