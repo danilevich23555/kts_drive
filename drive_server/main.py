@@ -7,6 +7,7 @@ import fernet as fernet
 from aiohttp import web
 from aiohttp_session import setup
 from aiohttp_session.redis_storage import RedisStorage
+from aiohttp_session import session_middleware
 from aiohttp_session.cookie_storage import EncryptedCookieStorage
 import asyncio
 import aioredis
@@ -26,7 +27,8 @@ BASE_DIR = pathlib.Path(__file__).parent
 
 async def make_redis_pool():
     redis_address = settings.DSN_REDIS
-    return await aioredis.create_redis_pool(redis_address, timeout=1)
+    return await aioredis.create_pool(('127.0.0.1', 6379))
+    # return await aioredis.create_redis_pool(redis_address, timeout=1)
 
 def create_app() -> Application:
     app: Application = web.Application()
@@ -47,17 +49,16 @@ def create_app() -> Application:
     REDIS_COOKIE_NAME = 'session_id' #todo вынести в settings
     storage = aiohttp_session.redis_storage.RedisStorage(redis_pool, cookie_name=REDIS_COOKIE_NAME, max_age=600)
     aiohttp_session.setup(app, storage)
-    #
-    # async def dispose_redis_pool(app):
-    #     redis_pool.close()
-    #     await redis_pool.wait_closed()
-    #
-    # # setup(app, storage)
-    # app.on_cleanup.append(dispose_redis_pool)
-    fernet_key = fernet.Fernet.generate_key()
-    secret_key = base64.urlsafe_b64decode(fernet_key)
-    storage = EncryptedCookieStorage(secret_key)
-    setup(app, storage)
+    if storage is not None:
+        app.middlewares.insert(0, session_middleware(storage))
+
+    async def dispose_redis_pool(app):
+        redis_pool.close()
+        await redis_pool.wait_closed()
+
+    # setup(app, storage)
+    app.on_cleanup.append(dispose_redis_pool)
+
     setup_routes(app)
     Database.create_engine(dsn=settings.POSTGRES_DSN, pool_size=20)
     # TODO: setup_aiohttp_apispec, указать static_path='/swagger_static' для избежания конфликта со статикой приложения
